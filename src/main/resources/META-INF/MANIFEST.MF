@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Main-Class: cn.leafoct.Main
+Class-Path: javafx-graphics-21-linux.jar javafx-base-21.jar bson-5.3.0.j
+ ar javafx-base-21-linux.jar javafx-controls-21.jar mongodb-driver-core-
+ 5.3.0.jar javafx-controls-21-linux.jar mongodb-driver-sync-5.3.0.jar bs
+ on-record-codec-5.3.0.jar javafx-graphics-21.jar
+
