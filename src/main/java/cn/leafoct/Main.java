@@ -92,7 +92,7 @@ public class Main extends Application {
             amount_field.clear();
         });
         commit_task.setOnFailed(e -> {
-            log_area.appendText(result);
+            log_area.appendText("提交交易记录失败");
             log_area.appendText("\n");
             submit_button.setDisable(false);
         });
