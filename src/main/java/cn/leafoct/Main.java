@@ -40,6 +40,7 @@ public class Main extends Application {
     private Mongo mongo = new Mongo();
 
     private String result;
+
     @Override
     public void init() throws Exception {
         super.init();
@@ -59,15 +60,17 @@ public class Main extends Application {
             @Override
             protected Void call() throws Exception {
                 var result = mongo.connect();
+                System.out.println(result);
                 if (!result) {
                     throw new Exception();
                 }
+
                 return null;
             }
         };
         connect_mongodb_task.setOnSucceeded(e -> {
             log_area.appendText("Mongodb连接成功\n");
-            log_area.appendText("当前余额"+balance+"\n");
+            log_area.appendText("当前余额" + balance + "\n");
         });
         connect_mongodb_task.setOnFailed(e -> {
             log_area.appendText("Mongodb连接失败\n");
@@ -79,7 +82,7 @@ public class Main extends Application {
         var commit_task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                result=mongo.insert(collection_name, transaction);
+                result = mongo.insert(collection_name, transaction);
                 return null;
             }
         };
@@ -87,7 +90,7 @@ public class Main extends Application {
             log_area.appendText(result);
             log_area.appendText("\n");
             submit_button.setDisable(false);
-            balance=temp_balance;
+            balance = temp_balance;
             description_field.clear();
             amount_field.clear();
         });
@@ -116,7 +119,7 @@ public class Main extends Application {
                 log_area.appendText("输入的金额不合法！\n");
                 return;
             }
-            temp_balance = Math.round((is_expense ? balance - amount : balance + amount)*100.0)/100.0;
+            temp_balance = Math.round((is_expense ? balance - amount : balance + amount) * 100.0) / 100.0;
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("确认提交？");          // 设置标题
             alert.setHeaderText(null);      // 隐藏副标题（可选）
@@ -125,7 +128,7 @@ public class Main extends Application {
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 submit_button.setDisable(true);
                 var document = new Document("date", y + "-" + m + "-" + d).append("description", description).append("isexpense", is_expense).append("number", amount).append("balance", temp_balance);
-                new Thread(getMongoCommitTask("a"+y+"_"+m, document)).start();
+                new Thread(getMongoCommitTask("a" + y + "_" + m, document)).start();
             }
 
         });
@@ -142,7 +145,7 @@ public class Main extends Application {
         updateConfigBalance();
     }
 
-    private void updateConfigBalance(){
+    private void updateConfigBalance() {
         List<String> lines = null;
         try {
             lines = Files.readAllLines(Paths.get(config_file));
