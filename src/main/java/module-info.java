@@ -6,5 +6,6 @@ module BalanceGUI {
     requires org.mongodb.driver.core;
 //    mongodb驱动要用
     requires java.logging;
+    requires java.security.sasl;
     exports cn.leafoct;
 }

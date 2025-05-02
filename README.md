@@ -63,7 +63,7 @@ java -jar BalanceGUIJava.jar /path/to/config
 构建自定义jre镜像，注意要把java.logging打包进去
 
 ```ba
-jlink  --no-header-files --no-man-pages --compress=2 --strip-debug --module-path . --add-modules java.base,javafx.controls,java.logging --output customjre/
+jlink  --no-header-files --no-man-pages --compress=2 --strip-debug --module-path . --add-modules java.base,javafx.controls,java.logging,java.security.sasl --output customjre/
 ```
 
 构建可执行程序

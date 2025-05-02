@@ -73,6 +73,7 @@ public class Main extends Application {
             log_area.appendText("当前余额" + balance + "\n");
         });
         connect_mongodb_task.setOnFailed(e -> {
+            e.getSource().getException().printStackTrace();
             log_area.appendText("Mongodb连接失败\n");
         });
         return connect_mongodb_task;
@@ -95,6 +96,7 @@ public class Main extends Application {
             amount_field.clear();
         });
         commit_task.setOnFailed(e -> {
+            e.getSource().getException().printStackTrace();
             log_area.appendText("提交交易记录失败");
             log_area.appendText("\n");
             submit_button.setDisable(false);
