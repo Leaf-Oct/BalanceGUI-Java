@@ -48,10 +48,27 @@
 
 最终登录url会构造为 `mongodb://root:password@127.0.0.1:2333/admin`
 
-## 运行
+## 运行Jar包
 
 ```bash
 java -jar BalanceGUIJava.jar /path/to/config
 ```
 
 不加参数则默认读取当前路径下的config文件
+
+## 构建
+
+先用IDEA，创建一个artifact，将项目的jar包和依赖的jar包导出到同一个目录下
+
+构建自定义jre镜像，注意要把java.logging打包进去
+
+```ba
+jlink  --no-header-files --no-man-pages --compress=2 --strip-debug --module-path . --add-modules java.base,javafx.controls,java.logging --output customjre/
+```
+
+构建可执行程序
+
+```bash
+jpackage --input /前面提到的所有jar包所在的目录 --name BalanceGUI --main-jar BalanceGUI.jar --main-class cn.leafoct.Main --runtime-image /前面构建的自定义jre目录 --type app-image
+```
+
